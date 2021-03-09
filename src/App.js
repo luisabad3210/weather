@@ -1,10 +1,73 @@
 // import logo from './logo.svg';
-import './App.css';
+// import './App.css';
+import React, { useState } from 'react'
+
+const api = {
+  key: "cac35c39932b5be7071f388a82e43165",
+  base: "https://api.openweathermap.org/data/2.5/"
+}
+
+
 
 function App() {
+  const [query, setQuery] = useState('');
+  const [weather, setWeather] = useState({});
+
+  // fetch(`${api.base}weather?q=${query}$units=metric&appid=${api.key}`)
+  
+  const search = evt => {
+    if (evt.key === 'Enter') {
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=4${api.key}`)
+      .then(res => res.json())
+      .then(result => {
+        setWeather(result)
+        setQuery('')
+        console.log(result)
+        }
+      )
+    }
+  }
+
+
+  const dateBuilder = (d) => {
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    let days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    let day = days[d.getDay()];
+    let date = d.getDate();
+    let month = months[d.getMonth()];
+    let year = d.getFullYear();
+
+    return day + ' ' + month + ' ' + date + ' ' + year
+  }
+
   return (
-    <div className="App">
-      hello world
+    <div className="app">
+      <main>
+        <div className='search-box'>
+          <input 
+            type='text'
+            className='search-bar'
+            placeholder='search...'
+            onChange={e => setQuery(e.target.value)}
+            value={query}
+            onKeyPress={search}
+          />
+        </div>
+
+        <div className='location-box'>
+          <div className='location'> new york city</div>
+          <div className='date'>{dateBuilder(new Date())}</div>
+        </div>
+
+        <div className='weather-box'>
+          <div className='temp'>
+            50&deg; F
+            
+          </div>
+          <div className='weather'>Sunny</div>
+        </div>
+      </main>
     </div>
   );
 }
