@@ -1,6 +1,7 @@
 // import logo from './logo.svg';
 // import './App.css';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+
 
 const api = {
   key: "cac35c39932b5be7071f388a82e43165",
@@ -13,21 +14,21 @@ function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
 
-  // fetch(`${api.base}weather?q=${query}$units=metric&appid=${api.key}`)
+  // window.navigator.geolocation.getCurrentPosition(console.log, console.log);
+
   
+
   const search = evt => {
     if (evt.key === 'Enter') {
-      fetch(`https://api.openweathermap.org/data/2.5/weather?q=4${api.key}`)
+      fetch(`${api.base}weather?q=${query}&appid=${api.key}`)
       .then(res => res.json())
       .then(result => {
         setWeather(result)
         setQuery('')
-        console.log(result)
-        }
-      )
+        // console.log(result)
+        });
     }
   }
-
 
   const dateBuilder = (d) => {
     let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -41,9 +42,11 @@ function App() {
     return day + ' ' + month + ' ' + date + ' ' + year
   }
 
+
   return (
     <div className="app">
       <main>
+
         <div className='search-box'>
           <input 
             type='text'
@@ -55,18 +58,21 @@ function App() {
           />
         </div>
 
-        <div className='location-box'>
-          <div className='location'> new york city</div>
-          <div className='date'>{dateBuilder(new Date())}</div>
-        </div>
-
-        <div className='weather-box'>
-          <div className='temp'>
-            50&deg; F
-            
+        {typeof weather.main != 'undefined' ? 
+        <div>
+          <div className='location-box'>
+            <div className='location'>{weather.name + ', ' + weather.sys.country}</div>
+            <div className='date'>{dateBuilder(new Date())}</div>
           </div>
-          <div className='weather'>Sunny</div>
-        </div>
+
+          <div className='weather-box'>
+            <div className='temp'>
+              {Math.round(weather.main.temp)}&deg; F
+              
+            </div>
+            <div className='weather'>{weather.weather[0].main}</div>
+          </div>
+        </div> : ('') }
       </main>
     </div>
   );
