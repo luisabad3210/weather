@@ -2,21 +2,14 @@
 // import './App.css';
 import React, { useState } from 'react';
 
-
 const api = {
   key: "cac35c39932b5be7071f388a82e43165",
   base: "https://api.openweathermap.org/data/2.5/"
 }
 
-
-
 function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
-
-  // window.navigator.geolocation.getCurrentPosition(console.log, console.log);
-
-  
 
   const search = evt => {
     if (evt.key === 'Enter') {
