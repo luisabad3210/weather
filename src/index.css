@@ -11,3 +11,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.appContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(226, 232, 242);
+  height: 100vh;
+}
+
+.app {
+  height: 568px;
+  width: 320px;
+  border: 1px solid white;
+  background-color: white;
+  border-radius: 15px;
+  display: grid;
+  grid-template-rows: 50% 50%;
+  /* padding: 20px; */
+}
+
+.bottom, .search-box{
+  border: 1px solid red;
+}

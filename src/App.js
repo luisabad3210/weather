@@ -37,8 +37,9 @@ function App() {
 
 
   return (
-    <div className="app">
-      <main>
+    <div className="appContainer">
+
+      <div className='app'>
 
         <div className='search-box'>
           <input 
@@ -46,13 +47,15 @@ function App() {
             className='search-bar'
             placeholder='search...'
             onChange={e => setQuery(e.target.value)}
-            value={query}
+            // value={query}
             onKeyPress={search}
           />
         </div>
 
+        {/* __________ */}
+
         {typeof weather.main != 'undefined' ? 
-        <div>
+        <div className='bottom'>
           <div className='location-box'>
             <div className='location'>{weather.name + ', ' + weather.sys.country}</div>
             <div className='date'>{dateBuilder(new Date())}</div>
@@ -66,7 +69,9 @@ function App() {
             <div className='weather'>{weather.weather[0].main}</div>
           </div>
         </div> : ('') }
-      </main>
+
+      </div>
+
     </div>
   );
 }
